@@ -107,7 +107,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
         MyInfoWindowAdapter markerInfoWindowAdapter = new MyInfoWindowAdapter(getApplicationContext());
         googleMap.setInfoWindowAdapter(markerInfoWindowAdapter);
         mMap.clear();
-        setMapLongClick(mMap);
+
         googleMap.setOnInfoWindowClickListener(this);
 
         camera = findViewById(R.id.cameracirc);
@@ -122,17 +122,6 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
         });
     }
 
-    private void setMapLongClick(final GoogleMap map) {
-        map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                Toast toast = Toast.makeText(getApplicationContext(), "LAT: " +
-                        latLng.latitude + "\nLNG: " + latLng.longitude, Toast.LENGTH_LONG);
-                map.addMarker(new MarkerOptions().position(latLng));
-                toast.show();
-            }
-        });
-    }
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
