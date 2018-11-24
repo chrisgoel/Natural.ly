@@ -2,6 +2,7 @@ package ca.queensu.toft.naturally;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,6 +14,7 @@ import java.util.Date;
 import ca.queensu.toft.naturally.Model.Guess;
 import clarifai2.api.ClarifaiBuilder;
 import clarifai2.api.ClarifaiClient;
+import clarifai2.api.request.ClarifaiRequest;
 import clarifai2.dto.input.ClarifaiInput;
 import clarifai2.dto.model.ModelVersion;
 
@@ -21,8 +23,10 @@ public class PictureRecognizor {
     private ClarifaiClient clarifai = new ClarifaiBuilder(apikey).buildSync();
     private final String modelID = "animals";
     private final String versionID = "39e96022b0a84ea08957c8eaea82e90f";
+    public Guess guess;
 
 
+    /*
     public Guess guess(File image, float latitude, float longitude) {
         ModelVersion modelVersion = clarifai.getModelVersionByID(modelID, versionID).executeSync().get();
 
@@ -41,36 +45,59 @@ public class PictureRecognizor {
         Bitmap bitmap = BitmapFactory.decodeFile(image.getPath());
 
         return new Guess(species, guesstime, certainty, bitmap, latitude, longitude);
-    }
+    }*/
 
-    public Guess guess(Bitmap bitmap, float latitude, float longitude) {
+    public void guess(final Bitmap bitmap, final float latitude, final float longitude) {
         System.out.println("latitude: " + latitude);
         System.out.println("longitude: " + longitude);
-        ModelVersion modelVersion = clarifai.getModelVersionByID("animals", "39e96022b0a84ea08957c8eaea82e90f").executeSync().get();
+        clarifai.getModelVersionByID(modelID, versionID).executeAsync(new ClarifaiRequest.Callback<ModelVersion>() {
+            @Override
+            public void onClarifaiResponseSuccess(@NonNull ModelVersion modelVersion) {
+                getGuessFromVersion(modelVersion, bitmap, latitude, longitude);
+            }
 
-        File image = new File("./tempimg.png");
+            @Override
+            public void onClarifaiResponseUnsuccessful(int errorCode) {
+            }
 
+            @Override
+            public void onClarifaiResponseNetworkError(IOException e) {
+            }
+        });
+        //return new Guess(species, guesstime, certainty, bitmap, latitude, longitude);
+    }
+
+    private void getGuessFromVersion(ModelVersion version, Bitmap bitmap, float latitude, float longitude) {
+        File image;
         try {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(image));
+            image = File.createTempFile("tmpimg", "png");
+
+            System.out.println("Temp file created");
+            try {
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(image));
+                String species = clarifai.predict("animals")
+                        .withVersion(version)
+                        .withInputs(ClarifaiInput.forImage(image))
+                        .executeSync()
+                        .get().get(0).data().get(0).asConcept().name();
+                System.out.println(species);
+                Date guesstime = new Date();
+                float certainty = clarifai.predict("animals")
+                        .withVersion(version)
+                        .withInputs(ClarifaiInput.forImage(image))
+                        .executeSync()
+                        .get().get(0).data().get(0).asConcept().value();
+                guess = new Guess(species, guesstime, certainty, bitmap, latitude, longitude);
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
         } catch(IOException e) {
-            e.printStackTrace();
+            System.out.println("Temp file not created");
         }
+    }
 
-        String species = clarifai.predict("animals")
-                .withVersion(modelVersion)
-                .withInputs(ClarifaiInput.forImage(image))
-                .executeSync()
-                .get().get(0).data().get(0).asConcept().name();
-        Date guesstime = new Date();
-        float certainty = clarifai.predict("animals")
-                .withVersion(modelVersion)
-                .withInputs(ClarifaiInput.forImage(image))
-                .executeSync()
-                .get().get(0).data().get(0).asConcept().value();
-
-        image.delete();
-
-        return new Guess(species, guesstime, certainty, bitmap, latitude, longitude);
+    public Guess getGuess() {
+        return guess;
     }
 
     /*

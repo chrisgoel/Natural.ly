@@ -22,20 +22,26 @@ public class Finding extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finding);
         Intent intent = getIntent();
-        Bitmap bitmap = (Bitmap) intent.getParcelableExtra("BitmapImage");
+        final Bitmap bitmap = (Bitmap) intent.getParcelableExtra("BitmapImage");
 //        float latitude = intent.getFloatExtra("latitude", 0.0f);
 //        float longitude = intent.getFloatExtra("longitude", 0.0f);
         float lat = intent.getFloatExtra("latitude", 0);
         float lng = intent.getFloatExtra("longitude", 0);
         System.out.println("latitude INTENT: " + lat);
         System.out.println("longitude INTENT: " + lng);
+        Guess guess = pr.getGuess();
 //        PictureRecognizor pr = new PictureRecognizor();
 //        Guess guess = pr.guess(bitmap, latitude, longitude);
         ImageView imageView = (ImageView) findViewById(R.id.imageView2);
         TextView guessView = (TextView)findViewById(R.id.textView3);
         TextView certaintyView = (TextView)findViewById(R.id.textView4);
         imageView.setImageBitmap(bitmap);
-        guessView.setText(Float.toString(lat));
-        certaintyView.setText(Float.toString(lng));
+        try {
+            guessView.setText(guess.getSpecies());
+            certaintyView.setText(Float.toString(guess.getCertainty()));
+        } catch(NullPointerException e) {
+            System.out.println("Ricky go to bed");
+        }
+
     }
 }
