@@ -1,15 +1,24 @@
 package ca.queensu.toft.naturally;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.media.Image;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -23,6 +32,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Maps extends FragmentActivity implements OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
@@ -31,6 +46,13 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
     ImageButton camera;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    Uri image;
+    String mCameraFileName;
+    ImageView imageView2;
+    String mCurrentPhotoPath;
+    static final int REQUEST_TAKE_PHOTO = 1;
+    LatLng yourPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +62,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-       /* camera = findViewById(R.id.cameracirc);
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivity(intent);
-            }
-        });*/
+
     }
 
 
@@ -80,7 +95,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
-                        LatLng yourPosition = new LatLng(location.getLatitude(), location.getLongitude());
+                        yourPosition = new LatLng(location.getLatitude(), location.getLongitude());
                         float zoom = 15f;
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(yourPosition, zoom));
                         if (location != null) {
@@ -92,21 +107,21 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
         MyInfoWindowAdapter markerInfoWindowAdapter = new MyInfoWindowAdapter(getApplicationContext());
         googleMap.setInfoWindowAdapter(markerInfoWindowAdapter);
         mMap.clear();
-        setMapLongClick(mMap);
-        googleMap.setOnInfoWindowClickListener(this);
-    }
 
-    private void setMapLongClick(final GoogleMap map) {
-        map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+        googleMap.setOnInfoWindowClickListener(this);
+
+        camera = findViewById(R.id.cameracirc);
+        camera.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onMapLongClick(LatLng latLng) {
-                Toast toast = Toast.makeText(getApplicationContext(), "LAT: " +
-                        latLng.latitude + "\nLNG: " + latLng.longitude, Toast.LENGTH_LONG);
-                map.addMarker(new MarkerOptions().position(latLng));
-                toast.show();
+            public void onClick(View view) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                }
             }
         });
     }
+
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
@@ -127,4 +142,15 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
                 Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Intent i = new Intent(getApplicationContext(), Finding.class);
+            i.putExtra("BitmapImage", imageBitmap);
+
+            startActivity(i);
+        }
+    }
 }
