@@ -48,7 +48,6 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
                 startActivity(intent);
             }
         });*/
-
     }
 
 
