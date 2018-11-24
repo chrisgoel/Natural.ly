@@ -147,12 +147,10 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            mMap.addMarker(new MarkerOptions().position(yourPosition));
-//            ImageView thumbnail = (ImageView)findViewById(R.id.imageView);
-//            thumbnail.setImageBitmap(imageBitmap);
-            MyInfoWindowAdapter markerInfoWindowAdapter = new MyInfoWindowAdapter(getApplicationContext(), imageBitmap);
-            mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+            Intent i = new Intent(getApplicationContext(), Finding.class);
+            i.putExtra("BitmapImage", imageBitmap);
 
+            startActivity(i);
         }
     }
 }
