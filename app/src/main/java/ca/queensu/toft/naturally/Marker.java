@@ -1,16 +1,18 @@
 package ca.queensu.toft.naturally;
 
+import android.graphics.Bitmap;
+
 public class Marker {
     Float latitude;
     Float longitude;
     String animal;
-    String imageURL;
+    Bitmap img;
 
-    public Marker(Float latitude, Float longitude, String animal, String imageURL){
+    public Marker(Float latitude, Float longitude, String animal, Bitmap img){
         this.latitude=latitude;
         this.longitude=longitude;
         this.animal=animal;
-        this.imageURL = imageURL;
+        this.img = img;
     }
 
     public Float getLatitude() {
@@ -37,11 +39,11 @@ public class Marker {
         this.animal = animal;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public Bitmap getImg() {
+        return img;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImageURL(Bitmap img) {
+        this.img = img;
     }
 }
