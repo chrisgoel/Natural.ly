@@ -13,7 +13,7 @@ public class PictureRecognizor {
     private final String apikey = "95559efe4825454898c3ce979493c9bc";
     private ClarifaiClient clarifai = new ClarifaiBuilder(apikey).buildSync();
     private final String modelID = "animals";
-    private final String versionID = "7b838272a3f14a82853de32897895df4";
+    private final String versionID = "39e96022b0a84ea08957c8eaea82e90f";
 
 
     public Guess guess(File image, float latitude, float longitude) {
