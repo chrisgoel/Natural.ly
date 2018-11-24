@@ -2,21 +2,24 @@ package ca.queensu.toft.naturally;
 
 import android.graphics.Bitmap;
 
+import java.util.Date;
+
 public class Marker {
 
     Float latitude;
     Float longitude;
     String animal;
-    Bitmap img;
+    Date time;
     public Marker(){
 
     }
 
-    public Marker(Float latitude, Float longitude, String animal){
+    public Marker(Float latitude, Float longitude, String animal, Date time){
 
         this.latitude=latitude;
         this.longitude=longitude;
         this.animal=animal;
+        this.time = time;
        // this.img = img;
     }
 
@@ -34,8 +37,7 @@ public class Marker {
         return animal;
     }
 
-
-    public Bitmap getImg() {
-        return img;
+    public Date getTime(){
+        return time;
     }
 }

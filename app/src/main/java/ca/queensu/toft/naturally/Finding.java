@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import ca.queensu.toft.naturally.Model.Guess;
@@ -57,6 +58,7 @@ public class Finding extends AppCompatActivity {
         guessView.setText(guess.getSpecies());
         DecimalFormat df = new DecimalFormat("##.##");
         df.setRoundingMode(RoundingMode.DOWN);
+        final Date time = guess.getTimestamp();
         certaintyView.setText(df.format(100 * guess.getCertainty()) + "% certainty");
         Button suggestionButton = findViewById(R.id.button);
         Button overrideButton = findViewById(R.id.newName);
@@ -68,18 +70,18 @@ public class Finding extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myref = database.getReference("message");
-                Marker marker = new Marker(lat, lng, name);
+                Marker marker = new Marker(lat, lng, name, time);
                 myref.setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
             }
         });
-//tjis
+
         overrideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myref = database.getReference("message");
-                Marker marker = new Marker(lat, lng, customName.getText().toString());
+                Marker marker = new Marker(lat, lng, customName.getText().toString(),time);
                 myref.setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
             }
