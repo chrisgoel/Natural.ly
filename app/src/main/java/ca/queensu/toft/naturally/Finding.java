@@ -19,8 +19,10 @@ public class Finding extends AppCompatActivity {
         setContentView(R.layout.activity_finding);
         Intent intent = getIntent();
         Bitmap bitmap = (Bitmap) intent.getParcelableExtra("BitmapImage");
-        float latitude = intent.getFloatExtra("latitude", 0.0f);
-        float longitude = intent.getFloatExtra("longitude", 0.0f);
+//        float latitude = intent.getFloatExtra("latitude", 0.0f);
+//        float longitude = intent.getFloatExtra("longitude", 0.0f);
+        float latitude = 4.4f;
+        float longitude = 50.1f;
         PictureRecognizor pr = new PictureRecognizor();
         Guess guess = pr.guess(bitmap, latitude, longitude);
         ImageView imageView = (ImageView) findViewById(R.id.imageView2);

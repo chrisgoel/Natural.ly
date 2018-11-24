@@ -46,7 +46,7 @@ public class PictureRecognizor {
     public Guess guess(Bitmap bitmap, float latitude, float longitude) {
         System.out.println("latitude: " + latitude);
         System.out.println("longitude: " + longitude);
-        ModelVersion modelVersion = clarifai.getModelVersionByID(modelID, versionID).executeSync().get();
+        ModelVersion modelVersion = clarifai.getModelVersionByID("animals", "39e96022b0a84ea08957c8eaea82e90f").executeSync().get();
 
         File image = new File("./tempimg.png");
 
