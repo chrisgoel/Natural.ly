@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1054844345316",
+    "firebase_url": "https://naturally-31997.firebaseio.com",
+    "project_id": "naturally-31997",
+    "storage_bucket": "naturally-31997.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054844345316:android:8e799b02e650ff06",
+        "android_client_info": {
+          "package_name": "ca.queensu.toft.naturally"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1054844345316-k7gmq9k03jdvbnnb8u4togrrasqa2rb3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.queensu.toft.naturally",
+            "certificate_hash": "1eee4d9719d9e19971868d5f5af6810c174418fb"
+          }
+        },
+        {
+          "client_id": "1054844345316-o6fiacvqig4meihdbgfvncm1vko1fdg8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXYfG2--saTcROS9kKxeSbxrsYerUpvDI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1054844345316-o6fiacvqig4meihdbgfvncm1vko1fdg8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
