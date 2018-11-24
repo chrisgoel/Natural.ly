@@ -22,7 +22,7 @@ public class PictureRecognizor {
     private final String apikey = "95559efe4825454898c3ce979493c9bc";
     private ClarifaiClient clarifai = new ClarifaiBuilder(apikey).buildSync();
     private final String modelID = "animals";
-    private final String versionID = "39e96022b0a84ea08957c8eaea82e90f";
+    private final String versionID = "d59dc23cba0d4b2e83953fa27d15aaf6";
     public Guess guess;
     public static boolean finding = true;
 
