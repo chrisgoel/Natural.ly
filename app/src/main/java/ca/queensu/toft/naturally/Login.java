@@ -47,14 +47,14 @@ public class Login extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Maps.class);
-                startActivity(i);
                 String finalEmail = email.getText().toString();
                 String finalPassword= password.getText().toString();
                 firebaseAuth.signInWithEmailAndPassword(finalEmail, finalPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(Login.this, "IT FRIGGEN WORKED", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), Maps.class);
+                        startActivity(i);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
