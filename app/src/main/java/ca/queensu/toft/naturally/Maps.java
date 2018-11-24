@@ -40,14 +40,14 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        camera = findViewById(R.id.cameracirc);
+       /* camera = findViewById(R.id.cameracirc);
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 
