@@ -1,14 +1,10 @@
 package ca.queensu.toft.naturally;
 
-<<<<<<< HEAD
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-=======
-
->>>>>>> 2e0dc77b576d36fa5ca7bd0dc4dd1731dd366239
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -51,16 +47,14 @@ public class Login extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
-                Intent i = new Intent(getApplicationContext(), Maps.class);
-                startActivity(i);
-=======
                 String finalEmail = email.getText().toString();
                 String finalPassword= password.getText().toString();
                 firebaseAuth.signInWithEmailAndPassword(finalEmail, finalPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(Login.this, "IT FRIGGEN WORKED", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), Maps.class);
+                        startActivity(i);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -68,7 +62,6 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, "IT DID NOT WORK :( ", Toast.LENGTH_SHORT).show();
                     }
                 });
->>>>>>> 2e0dc77b576d36fa5ca7bd0dc4dd1731dd366239
             }
         });
 
