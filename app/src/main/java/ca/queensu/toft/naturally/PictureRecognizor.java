@@ -16,7 +16,7 @@ public class PictureRecognizor {
     private final String versionID = "7b838272a3f14a82853de32897895df4";
 
 
-    public Guess guess(File image) {
+    public Guess guess(File image, float latitude, float longitude) {
         ModelVersion modelVersion = clarifai.getModelVersionByID(modelID, versionID).executeSync().get();
 
         String species = clarifai.predict("animals")
@@ -31,6 +31,6 @@ public class PictureRecognizor {
                 .executeSync()
                 .get().get(0).data().get(0).asConcept().value();
 
-        return new Guess(species, guesstime, certainty, image);
+        return new Guess(species, guesstime, certainty, image, latitude, longitude);
     }
 }

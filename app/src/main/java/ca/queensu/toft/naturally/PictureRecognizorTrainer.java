@@ -7,7 +7,8 @@ import clarifai2.api.request.model.Action;
 import clarifai2.dto.input.ClarifaiInput;
 import clarifai2.dto.prediction.Concept;
 
-/* Runs on my computer (not on phone) to generate and train machine for picture interpretation
+/* Runs on my computer (not on phone) to generate and train machine for picture interpretation.
+ * DON'T RUN THIS FOR THE LOVE OF GOD
  */
 public class PictureRecognizorTrainer {
     private static final String apikey = "2129bdd3491348e49083aaa76b9322c7";
