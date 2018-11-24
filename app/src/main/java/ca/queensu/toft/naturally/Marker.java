@@ -12,12 +12,12 @@ public class Marker {
 
     }
 
-    public Marker(Float latitude, Float longitude, String animal, Bitmap img){
+    public Marker(Float latitude, Float longitude, String animal){
 
         this.latitude=latitude;
         this.longitude=longitude;
         this.animal=animal;
-        this.img = img;
+       // this.img = img;
     }
 
     public Float getLatitude() {

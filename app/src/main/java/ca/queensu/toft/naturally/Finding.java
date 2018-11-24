@@ -68,7 +68,7 @@ public class Finding extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myref = database.getReference("message");
-                Marker marker = new Marker(lat, lng, name, bitmap);
+                Marker marker = new Marker(lat, lng, name);
                 myref.setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
             }
@@ -79,7 +79,7 @@ public class Finding extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myref = database.getReference("message");
-                Marker marker = new Marker(lat, lng, customName.getText().toString(), bitmap);
+                Marker marker = new Marker(lat, lng, customName.getText().toString());
                 myref.setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
             }
