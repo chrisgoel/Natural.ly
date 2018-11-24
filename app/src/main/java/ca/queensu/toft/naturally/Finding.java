@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 import ca.queensu.toft.naturally.Model.Guess;
@@ -46,6 +48,8 @@ public class Finding extends AppCompatActivity {
         }
         Guess guess = pr.getGuess();
         guessView.setText(guess.getSpecies());
-        certaintyView.setText(Float.toString(guess.getCertainty()));
+        DecimalFormat df = new DecimalFormat("##.##");
+        df.setRoundingMode(RoundingMode.DOWN);
+        certaintyView.setText(df.format(100 * guess.getCertainty()) + "% certainty");
     }
 }
