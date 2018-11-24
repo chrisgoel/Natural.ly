@@ -64,8 +64,6 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
 
     Button refresh;
 
-    FirebaseDatabase fbd;
-    DatabaseReference myRef;
 
 
     @Override
@@ -84,8 +82,8 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
 
             }
         });*/
-        fbd = FirebaseDatabase.getInstance();
-        myRef = fbd.getReference();
+       FirebaseDatabase fbd = FirebaseDatabase.getInstance();
+        DatabaseReference  myRef = fbd.getReference();
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
