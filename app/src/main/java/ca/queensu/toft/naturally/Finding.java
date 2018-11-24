@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Picture;
 import android.media.Image;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -55,14 +59,31 @@ public class Finding extends AppCompatActivity {
         df.setRoundingMode(RoundingMode.DOWN);
         certaintyView.setText(df.format(100 * guess.getCertainty()) + "% certainty");
         Button suggestionButton = findViewById(R.id.button);
-        Button overrideButton = findViewById(R.id.button2);
-        EditText customName = findViewById(R.id.editText);
-        final String newSpecies = guess.getSpecies();
+        Button overrideButton = findViewById(R.id.newName);
+        final EditText customName = findViewById(R.id.editText);
+        final String name = guess.getSpecies();
         suggestionButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Marker marker = new Marker(lat, lng, newSpecies, bitmap);
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myref = database.getReference("Marker");
+                String id = myref.push().getKey();
+                Marker marker = new Marker(id, lat, lng, name, bitmap);
+                myref.child(id).setValue(marker);
+                Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
+            }
+        });
+
+        overrideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myref = database.getReference("Marker");
+                String id = myref.push().getKey();
+                Marker marker = new Marker(id, lat, lng, customName.getText().toString(), bitmap);
+                myref.child(id).setValue(marker);
+                Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
             }
         });
     }
