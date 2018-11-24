@@ -8,6 +8,9 @@ public class Marker {
     Float longitude;
     String animal;
     Bitmap img;
+    public Marker(){
+
+    }
 
     public Marker(Float latitude, Float longitude, String animal, Bitmap img){
 
