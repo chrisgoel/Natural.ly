@@ -10,6 +10,7 @@ import android.location.Location;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -32,6 +34,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,6 +59,10 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
     static final int REQUEST_IMAGE_CAPTURE = 1;
     LatLng yourPosition;
 
+    Button refresh;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +72,13 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readDatabase();
+
+            }
+        });
     }
 
 
@@ -204,6 +219,18 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
             i.putExtra("latitude", (float) yourPosition.latitude);
             i.putExtra("longitude", (float) yourPosition.longitude);
             startActivity(i);
+        }
+    }
+    public void readDatabase(){
+      //if ()
+    }
+    public void createMarker (Double lat, Double lng, String animal, Bitmap img) {
+
+        if ((Math.abs(yourPosition.latitude - lat) <= 0.5) && (Math.abs(yourPosition.longitude-lng)<=0.5)) {
+//should be maximum 50 kilometers approximately from user's current point and farthest point.
+            //this is meant for conservations authorities - that is why there are big numbers
+            LatLng position = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions().position(position).title(animal));
         }
     }
 }
