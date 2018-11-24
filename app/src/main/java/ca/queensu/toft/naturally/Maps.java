@@ -89,9 +89,9 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    double lat = ds.child("latitude").getValue(ca.queensu.toft.naturally.Marker.class).getLatitude();
-                    double lng = ds.child("longitude").getValue(ca.queensu.toft.naturally.Marker.class).getLongitude();
-                    String animal = ds.child("animal").getValue(ca.queensu.toft.naturally.Marker.class).getAnimal();
+                    double lat = ds.getValue(ca.queensu.toft.naturally.Marker.class).getLatitude();
+                    double lng = ds.getValue(ca.queensu.toft.naturally.Marker.class).getLongitude();
+                    String animal = ds.getValue(ca.queensu.toft.naturally.Marker.class).getAnimal();
 
                     createMarker(lat, lng, animal);
 
