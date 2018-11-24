@@ -76,7 +76,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:background="@color/colorPrimary"
                 android:text="@string/action_log_in"
+                android:textColor="@android:color/background_light"
                 android:textStyle="bold" />
 
         </LinearLayout>
