@@ -24,6 +24,7 @@ public class PictureRecognizor {
     private final String modelID = "animals";
     private final String versionID = "39e96022b0a84ea08957c8eaea82e90f";
     public Guess guess;
+    public static boolean finding = true;
 
 
     /*
@@ -82,12 +83,14 @@ public class PictureRecognizor {
                         .get().get(0).data().get(0).asConcept().name();
                 System.out.println(species);
                 Date guesstime = new Date();
+                System.out.println("GUESS TIME: " + guesstime);
                 float certainty = clarifai.predict("animals")
                         .withVersion(version)
                         .withInputs(ClarifaiInput.forImage(image))
                         .executeSync()
                         .get().get(0).data().get(0).asConcept().value();
                 guess = new Guess(species, guesstime, certainty, bitmap, latitude, longitude);
+                finding = false;
             } catch(IOException e) {
                 e.printStackTrace();
             }

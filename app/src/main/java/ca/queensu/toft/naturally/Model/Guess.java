@@ -5,21 +5,25 @@ import android.graphics.Bitmap;
 import java.io.File;
 import java.util.Date;
 
-public class Guess extends Animal {
+public class Guess {
     private Date timestamp;
     private float certainty;
     private Bitmap image;
     private float latitude;
     private float longitude;
+    private String species;
 
     public Guess(String species, Date timestamp, float certainty, Bitmap image, float lat, float lon) {
-        super(species);
+        //super(species);
+        this.species = species;
         this.timestamp = timestamp;
         this.certainty = certainty;
         this.image = image;
         this.latitude = lat;
         this.longitude = lon;
     }
+
+    public String getSpecies() { return species; }
 
     public Date getTimestamp() {
         return timestamp;
