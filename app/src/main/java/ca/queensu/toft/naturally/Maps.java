@@ -72,13 +72,13 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        refresh.setOnClickListener(new View.OnClickListener() {
+        /*refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 readDatabase();
 
             }
-        });
+        });*/
     }
 
 
