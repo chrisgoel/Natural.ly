@@ -3,14 +3,14 @@ package ca.queensu.toft.naturally;
 import android.graphics.Bitmap;
 
 public class Marker {
-    String id;
+
     Float latitude;
     Float longitude;
     String animal;
     Bitmap img;
 
-    public Marker(String id, Float latitude, Float longitude, String animal, Bitmap img){
-        this.id = id;
+    public Marker(Float latitude, Float longitude, String animal, Bitmap img){
+
         this.latitude=latitude;
         this.longitude=longitude;
         this.animal=animal;

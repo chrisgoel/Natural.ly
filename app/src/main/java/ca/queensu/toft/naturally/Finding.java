@@ -67,10 +67,9 @@ public class Finding extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myref = database.getReference("Marker");
-                String id = myref.push().getKey();
-                Marker marker = new Marker(id, lat, lng, name, bitmap);
-                myref.child(id).setValue(marker);
+                DatabaseReference myref = database.getReference("message");
+                Marker marker = new Marker(lat, lng, name, bitmap);
+                myref.setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
             }
         });
@@ -79,10 +78,9 @@ public class Finding extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myref = database.getReference("Marker");
-                String id = myref.push().getKey();
-                Marker marker = new Marker(id, lat, lng, customName.getText().toString(), bitmap);
-                myref.child(id).setValue(marker);
+                DatabaseReference myref = database.getReference("message");
+                Marker marker = new Marker(lat, lng, customName.getText().toString(), bitmap);
+                myref.setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
             }
         });
