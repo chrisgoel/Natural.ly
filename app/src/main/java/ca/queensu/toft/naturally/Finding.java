@@ -6,7 +6,10 @@ import android.graphics.Picture;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,8 +33,8 @@ public class Finding extends AppCompatActivity {
         final Bitmap bitmap = (Bitmap) intent.getParcelableExtra("BitmapImage");
 //        float latitude = intent.getFloatExtra("latitude", 0.0f);
 //        float longitude = intent.getFloatExtra("longitude", 0.0f);
-        float lat = intent.getFloatExtra("latitude", 0);
-        float lng = intent.getFloatExtra("longitude", 0);
+        final float lat = intent.getFloatExtra("latitude", 0);
+        final float lng = intent.getFloatExtra("longitude", 0);
         System.out.println("latitude INTENT: " + lat);
         System.out.println("longitude INTENT: " + lng);
         PictureRecognizor pr = new PictureRecognizor();
@@ -51,5 +54,16 @@ public class Finding extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat("##.##");
         df.setRoundingMode(RoundingMode.DOWN);
         certaintyView.setText(df.format(100 * guess.getCertainty()) + "% certainty");
+        Button suggestionButton = findViewById(R.id.button);
+        Button overrideButton = findViewById(R.id.button2);
+        EditText customName = findViewById(R.id.editText);
+        final String newSpecies = guess.getSpecies();
+        suggestionButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Marker marker = new Marker(lat, lng, newSpecies, bitmap);
+            }
+        });
     }
 }
