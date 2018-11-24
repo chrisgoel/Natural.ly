@@ -84,16 +84,25 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
 
             }
         });*/
+        fbd = FirebaseDatabase.getInstance();
+        myRef = fbd.getReference();
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    double lat = ds.child("latitude").getValue(ca.queensu.toft.naturally.Marker.class).getLatitude();
+                    double lng = ds.child("longitude").getValue(ca.queensu.toft.naturally.Marker.class).getLongitude();
+                    String animal = ds.child("animal").getValue(ca.queensu.toft.naturally.Marker.class).getAnimal();
 
+                    createMarker(lat, lng, animal);
+
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(Maps.this, "ERROR, I REPEAT, MAJOR ERROR", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -241,7 +250,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
     public void readDatabase(){
       //if ()
     }
-    public void createMarker (Double lat, Double lng, String animal, Bitmap img) {
+    public void createMarker (Double lat, Double lng, String animal) {
 
         if ((Math.abs(yourPosition.latitude - lat) <= 0.5) && (Math.abs(yourPosition.longitude-lng)<=0.5)) {
 //should be maximum 50 kilometers approximately from user's current point and farthest point.
