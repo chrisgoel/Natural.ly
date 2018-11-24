@@ -73,6 +73,8 @@ public class Finding extends AppCompatActivity {
                 Marker marker = new Marker(lat, lng, name, time);
                 myref.setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
+                Intent i = new Intent(getApplicationContext(), Maps.class);
+                startActivity(i);
             }
         });
 
@@ -84,6 +86,8 @@ public class Finding extends AppCompatActivity {
                 Marker marker = new Marker(lat, lng, customName.getText().toString(),time);
                 myref.setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
+                Intent i = new Intent(getApplicationContext(), Maps.class);
+                startActivity(i);
             }
         });
     }
