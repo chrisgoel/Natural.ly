@@ -56,7 +56,7 @@
         <activity
             android:name=".Maps"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".Finding"></activity>
+        <activity android:name=".Finding" />
     </application>
 
 </manifest>

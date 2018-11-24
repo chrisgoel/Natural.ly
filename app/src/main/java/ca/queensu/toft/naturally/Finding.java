@@ -9,6 +9,10 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.Objects;
+
 import ca.queensu.toft.naturally.Model.Guess;
 
 public class Finding extends AppCompatActivity {
@@ -21,16 +25,17 @@ public class Finding extends AppCompatActivity {
         Bitmap bitmap = (Bitmap) intent.getParcelableExtra("BitmapImage");
 //        float latitude = intent.getFloatExtra("latitude", 0.0f);
 //        float longitude = intent.getFloatExtra("longitude", 0.0f);
-        float latitude = 4.4f;
-        float longitude = 50.1f;
-        PictureRecognizor pr = new PictureRecognizor();
-        Guess guess = pr.guess(bitmap, latitude, longitude);
+        float lat = intent.getFloatExtra("latitude", 0);
+        float lng = intent.getFloatExtra("longitude", 0);
+        System.out.println("latitude INTENT: " + lat);
+        System.out.println("longitude INTENT: " + lng);
+//        PictureRecognizor pr = new PictureRecognizor();
+//        Guess guess = pr.guess(bitmap, latitude, longitude);
         ImageView imageView = (ImageView) findViewById(R.id.imageView2);
-        TextView guessView = (TextView)findViewById(R.id.textView2);
-        TextView certaintyView = (TextView)findViewById(R.id.textView3);
+        TextView guessView = (TextView)findViewById(R.id.textView3);
+        TextView certaintyView = (TextView)findViewById(R.id.textView4);
         imageView.setImageBitmap(bitmap);
-        guessView.setText(guess.getSpecies());
-        certaintyView.setText(Float.toString(guess.getCertainty()));
-
+        guessView.setText(Float.toString(lat));
+        certaintyView.setText(Float.toString(lng));
     }
 }

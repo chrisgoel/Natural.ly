@@ -20,4 +20,7 @@
     <string name="title_activity_sign_up">Sign Up</string>
     <string name="action_register">Register</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_temp_login">Sign in</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
 </resources>
