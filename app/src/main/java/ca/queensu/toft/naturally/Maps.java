@@ -58,14 +58,16 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
                     Toast.LENGTH_LONG);
             toast.show();
         }
-        // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         LatLng tashkent = new LatLng(41.312, 69.241);
         mMap.addMarker(new MarkerOptions().position(tashkent).title("Marker in Tashkent"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(tashkent));
+        MyInfoWindowAdapter markerInfoWindowAdapter = new MyInfoWindowAdapter(getApplicationContext());
+        googleMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+        mMap.clear();
         setMapLongClick(mMap);
-        mMap.setOnInfoWindowClickListener(this);
+        googleMap.setOnInfoWindowClickListener(this);
     }
 
     private void setMapLongClick(final GoogleMap map) {
