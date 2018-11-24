@@ -1,16 +1,18 @@
 package ca.queensu.toft.naturally.Model;
 
+import android.graphics.Bitmap;
+
 import java.io.File;
 import java.util.Date;
 
 public class Guess extends Animal {
     private Date timestamp;
     private float certainty;
-    private File image;
+    private Bitmap image;
     private float latitude;
     private float longitude;
 
-    public Guess(String species, Date timestamp, float certainty, File image, float lat, float lon) {
+    public Guess(String species, Date timestamp, float certainty, Bitmap image, float lat, float lon) {
         super(species);
         this.timestamp = timestamp;
         this.certainty = certainty;
@@ -27,7 +29,7 @@ public class Guess extends Animal {
         return certainty;
     }
 
-    public File getImage() {
+    public Bitmap getImage() {
         return image;
     }
 

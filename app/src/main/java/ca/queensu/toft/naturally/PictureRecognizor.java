@@ -1,6 +1,12 @@
 package ca.queensu.toft.naturally;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 
 import ca.queensu.toft.naturally.Model.Guess;
@@ -31,6 +37,41 @@ public class PictureRecognizor {
                 .executeSync()
                 .get().get(0).data().get(0).asConcept().value();
 
-        return new Guess(species, guesstime, certainty, image, latitude, longitude);
+        Bitmap bitmap = BitmapFactory.decodeFile(image.getPath());
+
+        return new Guess(species, guesstime, certainty, bitmap, latitude, longitude);
     }
+
+    public Guess guess(Bitmap bitmap, float latitude, float longitude) {
+        ModelVersion modelVersion = clarifai.getModelVersionByID(modelID, versionID).executeSync().get();
+
+        File image = new File("./tempimg.png");
+
+        try {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(image));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        String species = clarifai.predict("animals")
+                .withVersion(modelVersion)
+                .withInputs(ClarifaiInput.forImage(image))
+                .executeSync()
+                .get().get(0).data().get(0).asConcept().name();
+        Date guesstime = new Date();
+        float certainty = clarifai.predict("animals")
+                .withVersion(modelVersion)
+                .withInputs(ClarifaiInput.forImage(image))
+                .executeSync()
+                .get().get(0).data().get(0).asConcept().value();
+
+        image.delete();
+
+        return new Guess(species, guesstime, certainty, bitmap, latitude, longitude);
+    }
+
+    /*
+    public Guess guess(URL url, float latitude, float longitude) {
+
+    }*/
 }
