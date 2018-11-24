@@ -1,5 +1,6 @@
 package ca.queensu.toft.naturally;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -73,6 +74,8 @@ public class SignUp extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(SignUp.this, "Account created", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(), Maps.class);
+                    startActivity(i);
                 }
                 else{
                     Toast.makeText(SignUp.this, "ERROR, I REPEAT ERROR " + task.getException(), Toast.LENGTH_SHORT).show();
