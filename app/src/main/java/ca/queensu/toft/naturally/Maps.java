@@ -149,7 +149,8 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             Intent i = new Intent(getApplicationContext(), Finding.class);
             i.putExtra("BitmapImage", imageBitmap);
-
+            i.putExtra("latitude", yourPosition.latitude);
+            i.putExtra("longitude", yourPosition.longitude);
             startActivity(i);
         }
     }

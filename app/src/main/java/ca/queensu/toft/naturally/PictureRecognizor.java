@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.Date;
 
 import ca.queensu.toft.naturally.Model.Guess;
@@ -43,6 +44,8 @@ public class PictureRecognizor {
     }
 
     public Guess guess(Bitmap bitmap, float latitude, float longitude) {
+        System.out.println("latitude: " + latitude);
+        System.out.println("longitude: " + longitude);
         ModelVersion modelVersion = clarifai.getModelVersionByID(modelID, versionID).executeSync().get();
 
         File image = new File("./tempimg.png");
