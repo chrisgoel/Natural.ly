@@ -73,7 +73,7 @@ public class Finding extends AppCompatActivity {
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
             }
         });
-
+//tjis
         overrideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
