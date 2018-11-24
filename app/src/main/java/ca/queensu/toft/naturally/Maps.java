@@ -1,12 +1,15 @@
 package ca.queensu.toft.naturally;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -27,6 +30,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
 
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
+    ImageButton camera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,14 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        camera = findViewById(R.id.cameracirc);
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivity(intent);
+            }
+        });
 
     }
 

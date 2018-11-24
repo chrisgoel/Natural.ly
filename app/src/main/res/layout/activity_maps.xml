@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@mipmap/cameracircle"
+            android:id="@+id/cameracirc"
             />
     </android.support.v7.widget.LinearLayoutCompat>
 
