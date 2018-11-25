@@ -89,6 +89,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    Toast.makeText(getApplicationContext(), "WTF THIS WORKED?", Toast.LENGTH_SHORT).show();
                     double lat = ds.getValue(ca.queensu.toft.naturally.Marker.class).getLatitude();
                     double lng = ds.getValue(ca.queensu.toft.naturally.Marker.class).getLongitude();
                     String animal = ds.getValue(ca.queensu.toft.naturally.Marker.class).getAnimal();
@@ -245,16 +246,14 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
             startActivity(i);
         }
     }
-    public void readDatabase(){
-      //if ()
-    }
+
     public void createMarker (Double lat, Double lng, String animal) {
 
-        if ((Math.abs(yourPosition.latitude - lat) <= 0.5) && (Math.abs(yourPosition.longitude-lng)<=0.5)) {
+       // if ((Math.abs(yourPosition.latitude - lat) <= 0.5) && (Math.abs(yourPosition.longitude-lng)<=0.5)) {
 //should be maximum 50 kilometers approximately from user's current point and farthest point.
             //this is meant for conservations authorities - that is why there are big numbers
             LatLng position = new LatLng(lat, lng);
             mMap.addMarker(new MarkerOptions().position(position).title(animal));
-        }
+        //}
     }
 }
