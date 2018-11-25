@@ -27,7 +27,25 @@ public class Guess {
         this.species = species;
     }
 
-    public String getSpecies() { return species; }
+    public String getSpecies() {
+        if(species.equals("black_bear")) {
+            return "Black bear";
+        } else if(species.equals("cardinal_female")) {
+            return "Female cardinal";
+        } else if(species.equals("cardinal_male")) {
+            return "Male cardinal";
+        } else if(species.equals("rock_dove")) {
+            return "Rock dove/Pigeon";
+        } else if(species.equals("squirrel_grey")) {
+            return "Grey squirrel";
+        } else if(species.equals("squirrel_red")) {
+            return "Red squirrel";
+        } else if(species.equals("chipmunk")) {
+            return "Chipmunk";
+        } else {
+            return "Unknown";
+        }
+    }
 
     public Date getTimestamp() {
         return timestamp;
