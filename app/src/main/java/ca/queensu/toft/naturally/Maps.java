@@ -252,8 +252,11 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
        // if ((Math.abs(yourPosition.latitude - lat) <= 0.5) && (Math.abs(yourPosition.longitude-lng)<=0.5)) {
 //should be maximum 50 kilometers approximately from user's current point and farthest point.
             //this is meant for conservations authorities - that is why there are big numbers
+
             LatLng position = new LatLng(lat, lng);
             mMap.addMarker(new MarkerOptions().position(position).title(animal));
+            MyInfoWindowAdapter markerInfoWindowAdapter = new MyInfoWindowAdapter(getApplicationContext());
+            mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
         //}
     }
 }
