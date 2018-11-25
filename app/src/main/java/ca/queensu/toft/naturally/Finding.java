@@ -73,7 +73,6 @@ public class Finding extends AppCompatActivity {
                 DatabaseReference myref = database.getReference("message");
                 String id = myref.push().getKey();
                 Marker marker = new Marker(id, lat, lng, name, time);
-                myref.push().setValue(marker);
                 myref.child(id).setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
                 Intent i = new Intent(getApplicationContext(), Maps.class);
@@ -87,7 +86,6 @@ public class Finding extends AppCompatActivity {
                 DatabaseReference myref = database.getReference("message");
                 String id = myref.push().getKey();
                 Marker marker = new Marker(id, lat, lng, customName.getText().toString(),time);
-                myref.push().setValue(marker);
                 myref.child(id).setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
                 Intent i = new Intent(getApplicationContext(), Maps.class);
