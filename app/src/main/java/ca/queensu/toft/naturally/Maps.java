@@ -82,21 +82,28 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
 
             }
         });*/
-       FirebaseDatabase fbd = FirebaseDatabase.getInstance();
-        DatabaseReference  myRef = fbd.getReference();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("server/saving-data/fireblog/posts");
+//       FirebaseDatabase fbd = FirebaseDatabase.getInstance();
+//        DatabaseReference  myRef = fbd.getReference();
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Toast.makeText(getApplicationContext(), "WTF THIS WORKED?", Toast.LENGTH_SHORT).show();
-                    double lat = ds.getValue(ca.queensu.toft.naturally.Marker.class).getLatitude();
-                    double lng = ds.getValue(ca.queensu.toft.naturally.Marker.class).getLongitude();
-                    String animal = ds.getValue(ca.queensu.toft.naturally.Marker.class).getAnimal();
-
-                    createMarker(lat, lng, animal);
-
-                }
+//                for (DataSnapshot child : dataSnapshot.getChildren()){
+//                    Toast.makeText(getApplicationContext(), "WTF THIS WORKED?", Toast.LENGTH_SHORT).show();
+//                    double lat = child.getValue(new ca.queensu.toft.naturally.Marker()).getLatitude();
+//                    System.out.println("lat: " + lat);
+//                    double lng = child.getValue(ca.queensu.toft.naturally.Marker.class).getLongitude();
+//                    System.out.println("lng: " + lng);
+//                    String animal = child.getValue(ca.queensu.toft.naturally.Marker.class).getAnimal();
+//                    System.out.println("animal: " + animal);
+//
+//                    createMarker(lat, lng, animal);
+//
+//                }
+                ca.queensu.toft.naturally.Marker marker = dataSnapshot.getValue(ca.queensu.toft.naturally.Marker.class);
+                System.out.println(marker);
             }
 
             @Override
