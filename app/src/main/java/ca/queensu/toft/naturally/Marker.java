@@ -6,8 +6,8 @@ import java.util.Date;
 
 public class Marker {
 
-    Float latitude;
-    Float longitude;
+    double latitude;
+    double longitude;
     String animal;
     Date time;
     String id;
@@ -15,7 +15,7 @@ public class Marker {
 
     }
 
-    public Marker(String id, Float latitude, Float longitude, String animal, Date time){
+    public Marker(String id, double latitude, double longitude, String animal, Date time){
         this.id = id;
         this.latitude=latitude;
         this.longitude=longitude;
@@ -26,12 +26,12 @@ public class Marker {
 
     public String getId(){return id;}
 
-    public Float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
 
-    public Float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
