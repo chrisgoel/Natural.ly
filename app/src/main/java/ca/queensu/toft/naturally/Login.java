@@ -64,14 +64,12 @@ public class Login extends AppCompatActivity {
                 firebaseAuth.signInWithEmailAndPassword(finalEmail, finalPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(Login.this, "IT FRIGGEN WORKED", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(getApplicationContext(), Maps.class);
                         startActivity(i);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Https("6474674739", "IT WORKED BRUDER");
                         Toast.makeText(Login.this, "IT DID NOT WORK :( ", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -80,25 +78,8 @@ public class Login extends AppCompatActivity {
 
     }
 
-    public void Https(String tel1, String message){
-        OkHttpClient client = new OkHttpClient();
-        String url = "https://Shred13.lib.id/tester@dev/sequence/?tel1="+tel1+"&message="+message;
-        Request request = new Request.Builder().url(url).build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                Toast.makeText(Login.this, "rip in bois", Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()){
-                }
-            }
-        });
-    }
 }
 
 
