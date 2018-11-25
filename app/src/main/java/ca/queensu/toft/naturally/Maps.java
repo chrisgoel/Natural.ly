@@ -61,7 +61,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
     String mCurrentPhotoPath;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     LatLng yourPosition;
-
+    private DatabaseReference mDatabase;
     Button refresh;
 
 
@@ -82,28 +82,15 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
 
             }
         });*/
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("server/saving-data/fireblog/posts");
-//       FirebaseDatabase fbd = FirebaseDatabase.getInstance();
-//        DatabaseReference  myRef = fbd.getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("message");
 
-        ref.addValueEventListener(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot child : dataSnapshot.getChildren()){
-//                    Toast.makeText(getApplicationContext(), "WTF THIS WORKED?", Toast.LENGTH_SHORT).show();
-//                    double lat = child.getValue(new ca.queensu.toft.naturally.Marker()).getLatitude();
-//                    System.out.println("lat: " + lat);
-//                    double lng = child.getValue(ca.queensu.toft.naturally.Marker.class).getLongitude();
-//                    System.out.println("lng: " + lng);
-//                    String animal = child.getValue(ca.queensu.toft.naturally.Marker.class).getAnimal();
-//                    System.out.println("animal: " + animal);
-//
-//                    createMarker(lat, lng, animal);
-//
-//                }
-                ca.queensu.toft.naturally.Marker marker = dataSnapshot.getValue(ca.queensu.toft.naturally.Marker.class);
-                System.out.println(marker);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    ca.queensu.toft.naturally.Marker marker = snapshot.getValue(ca.queensu.toft.naturally.Marker.class);
+                    createMarker(marker.latitude, marker.longitude, marker.animal, marker.time);
+                }
             }
 
             @Override
@@ -177,11 +164,11 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
                     }
                 });
 
-        MyInfoWindowAdapter markerInfoWindowAdapter = new MyInfoWindowAdapter(getApplicationContext());
-        googleMap.setInfoWindowAdapter(markerInfoWindowAdapter);
-        mMap.clear();
-
-        googleMap.setOnInfoWindowClickListener(this);
+//        MyInfoWindowAdapter markerInfoWindowAdapter = new MyInfoWindowAdapter(getApplicationContext());
+//        googleMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+//        mMap.clear();
+//
+//        googleMap.setOnInfoWindowClickListener(this);
 
         camera = findViewById(R.id.cameracirc);
         camera.setOnClickListener(new View.OnClickListener() {
@@ -254,16 +241,14 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
         }
     }
 
-    public void createMarker (Double lat, Double lng, String animal) {
+    public void createMarker (Double lat, Double lng, String animal, Date time) {
 
        // if ((Math.abs(yourPosition.latitude - lat) <= 0.5) && (Math.abs(yourPosition.longitude-lng)<=0.5)) {
 //should be maximum 50 kilometers approximately from user's current point and farthest point.
             //this is meant for conservations authorities - that is why there are big numbers
 
-            LatLng position = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(position).title(animal));
-            MyInfoWindowAdapter markerInfoWindowAdapter = new MyInfoWindowAdapter(getApplicationContext());
-            mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+        LatLng position = new LatLng(lat, lng);
+        mMap.addMarker(new MarkerOptions().position(position).title(animal).snippet(time.toString()));
         //}
     }
 }

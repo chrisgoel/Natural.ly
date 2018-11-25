@@ -6,11 +6,12 @@ import java.util.Date;
 
 public class Marker {
 
-    double latitude;
-    double longitude;
-    String animal;
-    Date time;
-    String id;
+    public double latitude;
+    public double longitude;
+    public String animal;
+    public Date time;
+    public String id;
+
     public Marker(){
 
     }
@@ -21,7 +22,6 @@ public class Marker {
         this.longitude=longitude;
         this.animal=animal;
         this.time = time;
-       // this.img = img;
     }
 
     public String getId(){return id;}
