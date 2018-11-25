@@ -242,13 +242,37 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
     }
 
     public void createMarker (Double lat, Double lng, String animal, Date time) {
-
-       // if ((Math.abs(yourPosition.latitude - lat) <= 0.5) && (Math.abs(yourPosition.longitude-lng)<=0.5)) {
+       // Date currentTime = new Date();
+      //  if (((Math.abs(yourPosition.latitude - lat) <= 0.5) && (Math.abs(yourPosition.longitude-lng)<=0.5))&&((time.getHours()-currentTime.getHours())<=8)) {
 //should be maximum 50 kilometers approximately from user's current point and farthest point.
             //this is meant for conservations authorities - that is why there are big numbers
 
         LatLng position = new LatLng(lat, lng);
         mMap.addMarker(new MarkerOptions().position(position).title(animal).snippet(time.toString()));
-        //}
+        // Https("2892000159", animal + "has been spotted!"); //Stdlib should work
+
+
+
+
+        //}//end of the if
     }
+     /*public void Https(String tel1, String message){
+        OkHttpClient client = new OkHttpClient();
+        String url = "https://Shred13.lib.id/tester@dev/sequence/?tel1="+tel1+"&message="+message;
+        Request request = new Request.Builder().url(url).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Toast.makeText(Login.this, "rip it no work bois", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()){
+                }
+            }
+        });
+    }*/
 }
