@@ -64,14 +64,17 @@ public class Finding extends AppCompatActivity {
         Button overrideButton = findViewById(R.id.newName);
         final EditText customName = findViewById(R.id.editText);
         final String name = guess.getSpecies();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         suggestionButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
+
                 DatabaseReference myref = database.getReference("message");
-                Marker marker = new Marker(lat, lng, name, time);
-                myref.setValue(marker);
+                String id = myref.push().getKey();
+                Marker marker = new Marker(id, lat, lng, name, time);
+                myref.push().setValue(marker);
+                myref.child(id).setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
                 Intent i = new Intent(getApplicationContext(), Maps.class);
                 startActivity(i);
@@ -81,10 +84,11 @@ public class Finding extends AppCompatActivity {
         overrideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myref = database.getReference("message");
-                Marker marker = new Marker(lat, lng, customName.getText().toString(),time);
-                myref.setValue(marker);
+                String id = myref.push().getKey();
+                Marker marker = new Marker(id, lat, lng, customName.getText().toString(),time);
+                myref.push().setValue(marker);
+                myref.child(id).setValue(marker);
                 Toast.makeText(Finding.this, "Added into the Database", Toast.LENGTH_SHORT ).show();
                 Intent i = new Intent(getApplicationContext(), Maps.class);
                 startActivity(i);

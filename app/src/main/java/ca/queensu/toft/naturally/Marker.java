@@ -10,18 +10,21 @@ public class Marker {
     Float longitude;
     String animal;
     Date time;
+    String id;
     public Marker(){
 
     }
 
-    public Marker(Float latitude, Float longitude, String animal, Date time){
-
+    public Marker(String id, Float latitude, Float longitude, String animal, Date time){
+        this.id = id;
         this.latitude=latitude;
         this.longitude=longitude;
         this.animal=animal;
         this.time = time;
        // this.img = img;
     }
+
+    public String getId(){return id;}
 
     public Float getLatitude() {
         return latitude;
