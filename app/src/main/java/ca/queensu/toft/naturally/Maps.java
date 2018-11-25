@@ -46,6 +46,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class Maps extends FragmentActivity implements OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
@@ -62,7 +68,6 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
     static final int REQUEST_IMAGE_CAPTURE = 1;
     LatLng yourPosition;
     private DatabaseReference mDatabase;
-    Button refresh;
 
 
 
@@ -70,18 +75,9 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        /*refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                readDatabase();
-
-            }
-        });*/
         mDatabase = FirebaseDatabase.getInstance().getReference().child("message");
 
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -242,21 +238,21 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
     }
 
     public void createMarker (Double lat, Double lng, String animal, Date time) {
-       // Date currentTime = new Date();
-      //  if (((Math.abs(yourPosition.latitude - lat) <= 0.5) && (Math.abs(yourPosition.longitude-lng)<=0.5))&&((time.getHours()-currentTime.getHours())<=8)) {
+        Date currentTime = new Date();
+        if ((time.getHours()-currentTime.getHours())<=3) {
 //should be maximum 50 kilometers approximately from user's current point and farthest point.
             //this is meant for conservations authorities - that is why there are big numbers
 
-        LatLng position = new LatLng(lat, lng);
-        mMap.addMarker(new MarkerOptions().position(position).title(animal).snippet(time.toString()));
-        // Https("2892000159", animal + "has been spotted!"); //Stdlib should work
+            LatLng position = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions().position(position).title(animal).snippet(time.toString()));
+             Https("2892000159", animal + " has been spotted!"); //Stdlib should work
 
 
 
 
-        //}//end of the if
+        }//end of the if
     }
-     /*public void Https(String tel1, String message){
+     public void Https(String tel1, String message){
         OkHttpClient client = new OkHttpClient();
         String url = "https://Shred13.lib.id/tester@dev/sequence/?tel1="+tel1+"&message="+message;
         Request request = new Request.Builder().url(url).build();
@@ -265,7 +261,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-                Toast.makeText(Login.this, "rip it no work bois", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Maps.this, "rip it no work bois", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -274,5 +270,5 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
                 }
             }
         });
-    }*/
+    }
 }
